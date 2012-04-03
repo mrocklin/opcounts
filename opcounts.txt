@@ -1,0 +1,51 @@
+multiplications,additions,total_flops
+# Level 2 BLAS
+SGEMV, m*n, m*n, 2*m*n
+SSYMV, n^2, n^2, 2*n^2
+SSBMV, n*(2*k+1) - k*(k+1), n*(2*k+1) - k*(k+1), n*(4*k+2) - 2*k*(k+1)
+STRMV, n*(n+1)/2, (n-1)*n/2, n^2
+STBMV, n*(k+1) - k*(k+1)/2, n*k-k*(k+1)/2, n*(2*k+1) - k*(k+1)
+STRSV, n*(n+1)/2, (n-1)*n/2, n^2
+STBSV, n*(k+1) - k*(k+1)/2, n*k-k*(k+1)/2, n*(2*k+1) - k*(k+1)
+SGER, m*n, m*n, 2*m*n
+SSYR, n*(n+1)/2, n*(n+1)/2, n*(n+1)
+SSYR2, n*(n+1), n^2, 2*n^2+n
+
+# Level 3 BLAS
+SGEMM, m*k*n, m*k*n, 2*m*k*n
+SSYMM (SIDE=L), m^2*n, m^2*n, 2*m^2*n
+SSYMM (SIDE=R), m*n^2, m*n^2, 2*m*n^2
+SSYRK, k*n*(n+1)/2, k*n*(n+1)/2, k*n*(n+1)
+SSYR2K, k*n^2, k*n^2 + n, 2*k*n^2 +n
+STRMM (SIDE=L), n*m*(m+1)/2, n*m*(m-1)/2, n*m^2
+STRMM (SIDE=R), m*n*(n+1)/2, m*n*(n-1)/2, m*n^2
+STRSM (SIDE=L), n*m*(m+1)/2, n*m*(m-1)/2, n*m^2
+STRSM (SIDE=R), m*n*(n+1)/2, m*n*(n-1)/2, m*n^2
+
+# LAPACK
+SGETRF, 1/2*m*n^2 - 1/6*n^3 + 1/2*m*n - 1/2*n^2 + 2/3*n, 1/2*m*n^2 - 1/6*n^3 -1/2*m*n + 1/6*n, m*n^2 - 1/3*n^3 - 1/2*n^2 + 5/6*n
+SGETRI, 2/3*n^3 + 1/2*n^2 + 5/6*n, 2/3*n^3 - 3/2*n^2 + 5/6*n, 4/3*n^3 - n^2 + 5/3*n
+SGETRS * NRHS, n^2, n^2 - n, 2*n^2 - n
+SPOTRF, 1/6*n^3 + 1/2*n^2 + 1/3*n, 1/6*n^3 - 1/6*n, 1/3*n^3 + 1/2*n^2 + 1/6*n
+SPOTRI, 1/3*n^3 + n^2 + 2/3*n, 1/3*n^3 - 1/2*n^2 + 1/6*n, 2/3*n^3 + 1/2*n^2 + 5/6*n
+SPOTRS * NRHS, n^2 + n, n^2 - n, 2*n^2
+SPBTRF, n*(1/2*k^2 + 3/2*k + 1) - 1/3*k^3 - k^2 - 2/3*k, n*(1/2*k^2 + 1/2*k) - 1/3*k^3 - 1/2*k^2 - 1/6*k, n*(k^2 + 2*k + 1) - 2/3*k^3 - 3/2*k^2 -5/6*k
+SPBTRS * NRHS, 2*n*k + 2*n - k^2 - k, 2*n*k - k^2 - k, 4*n*k + 2*n - 2*k^2 - 2*k
+SSYTRF, 1/6*n^3 + 1/2*n^2 + 10/3*n, 1/6*n^3 - 1/6*n, 1/3*n^3 + 1/2*n^2 + 19/6*n
+SSYTRI, 1/3*n^3 + 2/3*n, 1/3*n^3 - 1/3*n, 2/3*n^3 + 1/3*n
+SSYTRS * NRHS, n^2 + n, n^2 - n, 2*n^2
+SGEQRF or SGEQLF (m>=n), m*n^2 - 1/3*n^3 + m*n + 1/2*n^2 + 23/6*n, m*n^2 - 1/3*n^3 + 1/2*n^2 + 5/6*n, 2*m*n^2 - 2/3*n^3 + m*n + n^2 +14/3*n
+SGEQRF or SGEQLF (m<=n), n*m^2 - 1/3*m^3 + 2*n*m - 1/2*m^2 + 23/6*m, n*m^2 - 1/3*m^3 + n*m - 1/2*m^2 + 5/6*m, 2*n*m^2 - 2/3*m^3 + 3*n*m - m^2 + 14/3*n
+SGERQF or SGELQF (m>=n), m*n^2 - 1/3*n^3 + m*n + 1/2*n^2 + 29/6*n, m*n^2 - 1/3*n^3 + m*n - 1/2*n^2 + 5/6*n, 2*m*n^2 - 2/3*n^3 + 2*m*n + 17/3*n
+SGERQF or SGELQF (m<=n), n*m^2 - 1/3*m^3 + 2*n*m - 1/2*m^2 + 29/6*m, n*m^2 - 1/3*m^3 + 1/2*m^2 + 5/6*m, 2*n*m^2 - 2/3*m^3 + 2*n*m + 17/3*n
+SORGQR or SORGQL, 2*m*n*k - (m+n)*k^2 + 2/3*k^3 + 2*n*k - k^2 - 5/3*k, 2*m*n*k - (m+n)*k^2 + 2/3*k^3 + n*k - m*k + 1/3*k, 4*m*n*k - 2*(m+n)*k^2 + 4/3*k^3 + 3*n*k - m*k - k^2 - 4/3*k
+SORGLQ or SORGRQ, 2*m*n*k - (m+n)*k^2 + 2/3*k^3 + m*k + n*k - k^2 - 2/3*k, 2*m*n*k - (m+n)*k^2 + 2/3*k^3 + m*k - n*k + 1/3*k, 4*m*n*k - 2*(m+n)*k^2 + 4/3*k^3 + 2*m*k - k^2 - 1/3*k
+SGEQRS * NRHS, 2*m*n - 1/2*n^2 + 5/2*n, 2*m*n - 1/2*n^2 + 1/2*n, 4*m*n - n^2 + 3*n
+SORMQR SORMLQ SORMQL SORMRQ (SIDE=L), 2*n*m*k - n*k^2 + 2*n*k, 2*n*m*k - n*k^2 + n*k, 4*n*m*k - 2*n*k^2 + 3*n*k
+SORMQR SORMLQ SORMQL SORMRQ (SIDE=R), 2*n*m*k - m*k^2 + m*k + n*k - 1/2*k^2 + 1/2*k, 2*n*m*k - m*k^2 + m*k, 4*n*m*k - 2*m*k^2 + 2*m*k + n*k - 1/2*k^2 + 1/2*k
+STRTRI, 1/6*n^3 + 1/2*n^2 + 1/3*n, 1/6*n^3 - 1/2*n^2 + 1/3*n, 1/3*n^3 + 2/3*n
+SGEHRD, 5/3*n^3 + 1/2*n^2 - 7/6*n - 13, 5/3*n^3 - n^2 -2/3*n - 8, 10/3*n^3 - 1/2*n^2 - 11/6*n - 21
+SSYTRD, 2/3*n^3 + 5/2*n^2 - 1/6*n - 15, 2/3*n^3 + n^2 - 8/3*n - 4, 4/3*n^3 + 3*n^2 - 17/6*n - 19
+SGEBRD (m>=n), 2*m*n^2 - 2/3*n^3 + 2*n^2 + 20/3*n, 2*m*n^2 - 2/3*n^3 + n^2 - m*n + 5/3*n, 4*m*n^2 - 4/3*n^3 + 3*n^2 - m*n + 25/3*n
+
+# * NRHS = number of right hand sides
