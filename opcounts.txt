@@ -1,4 +1,4 @@
-multiplications,additions,total_flops
+subroutine,multiplications,additions,total_flops
 # Level 2 BLAS
 SGEMV, m*n, m*n, 2*m*n
 SSYMV, n^2, n^2, 2*n^2
