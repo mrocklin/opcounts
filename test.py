@@ -12,12 +12,9 @@ def test():
     for line in lines[1:]:
         adds, muls, flops = map(sympify, line.strip().split(',')[1:])
         residual = simplify(flops - (adds + muls))
-        if residual == 0:
-            continue
-        #if residual.subs({n:2582, m:1827, k:285}) == 0:
-        #    continue
-        print line
-        print "Residual: ", residual
+        if residual and residual.subs({n: 2582, m: 1827, k: 285}):
+            print line
+            print "Residual: ", residual
 
 if __name__ == "__main__":
     test()
