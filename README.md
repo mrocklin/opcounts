@@ -1,12 +1,13 @@
+BLAS/LAPACK Operation Counts
+============================
+
 This repository holds the FLOP counts for BLAS and LAPACK operations found in 
 
 LAPACK Working Note 41 Version 3.0
 by Susan Blackford and Jack Dongarra
 June 30, 1999
 
-Appendix C - Operation Counts for the BLAS and LAPACK
-
-www.netlib.org/lapack/lawnspdf/lawn41.pdf
+[Appendix C - Operation Counts for the BLAS and LAPACK](www.netlib.org/lapack/lawnspdf/lawn41.pdf)
 
 This appendix lists the FLOPs required to compute routines in BLAS and LAPACK
 as a function of the size of the input matrices. 
